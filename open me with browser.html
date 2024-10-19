@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Service Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f0f0f0;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Service Management</h1>
+  
+  <form id="serviceForm">
+    <input type="text" id="name" placeholder="Service Name" required>
+    <input type="text" id="description" placeholder="Description">
+    <input type="number" id="price" placeholder="₹ Price" required min="0">
+    <button type="submit">Add Service</button>
+  </form>
+
+  <h2>Available Services</h2>
+  <table id="servicesTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const serviceForm = document.getElementById('serviceForm');
+    const servicesTableBody = document.querySelector('#servicesTable tbody');
+
+    // Fetch and display services
+    function loadServices() {
+      fetch('http://localhost:3333/services')
+        .then(response => response.json())
+        .then(data => {
+          servicesTableBody.innerHTML = '';
+          data.forEach(service => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${service.name}</td>
+              <td>${service.description || '-'}</td>
+              <td>₹${service.price}</td>
+              <td>
+                <button onclick="deleteService('${service._id}')">Delete</button>
+              </td>
+            `;
+            servicesTableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error('Error fetching services:', error));
+    }
+
+    // Add a new service
+    serviceForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const description = document.getElementById('description').value;
+      const price = document.getElementById('price').value;
+
+      fetch('http://localhost:3333/services', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, description, price })
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Service added successfully');
+        loadServices();
+        serviceForm.reset();
+      })
+      .catch(error => alert("kick the server / Turn on the server"));
+    });
+
+    // Delete a service
+    function deleteService(serviceId) {
+      fetch(`http://localhost:3333/services/${serviceId}`, {
+        method: 'DELETE'
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Service deleted successfully');
+        loadServices();
+      })
+      .catch(error => console.error('Error deleting service:', error));
+    }
+
+    // Load services on page load
+    loadServices();
+  </script>
+
+</body>
+</html>

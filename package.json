@@ -2,9 +2,11 @@
   "name": "health-service",
   "version": "1.0.0",
   "description": "just an intern project ",
-  "main": "app.js",
+  "main": "src/app.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": " nodemon"
   },
   "repository": {
     "type": "git",
@@ -22,7 +24,11 @@
   },
   "homepage": "https://github.com/Manojkumbi/health-service-api#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.2",
+    "nodemon": "^3.1.7"
   }
 }
