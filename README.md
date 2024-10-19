@@ -54,6 +54,6 @@ Before you begin, ensure you have the following:
 
     Open the `open me with browser.html` file in your browser to interact with the frontend of the service management system.
 
----
+***
 
 Enjoy managing services with this system!
