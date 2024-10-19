@@ -9,7 +9,7 @@ app.use(cors())
 
 
 
-mongoose.connect(process.env.DB_LOCATION, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DB_LOCATION, { autoIndex:true })
   .then(() => console.log('Connected to MongoDB via Mongoose'))
   .catch((error) => console.error('MongoDB connection error:', error));
 
