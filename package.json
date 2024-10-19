@@ -1,0 +1,28 @@
+{
+  "name": "health-service",
+  "version": "1.0.0",
+  "description": "just an intern project ",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Manojkumbi/health-service-api.git"
+  },
+  "keywords": [
+    "api",
+    "end",
+    "points"
+  ],
+  "author": "KUMARASWAMY S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Manojkumbi/health-service-api/issues"
+  },
+  "homepage": "https://github.com/Manojkumbi/health-service-api#readme",
+  "dependencies": {
+    "express": "^4.21.1",
+    "mongodb": "^6.9.0"
+  }
+}
